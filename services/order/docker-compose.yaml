@@ -6,3 +6,16 @@ services:
       - .:/home/node/app
     ports:
       - 3000:3000
+  order-db:
+    container_name: order-postgres-db
+    image: postgres:16.8-alpine
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: order
+    ports:
+      - "5434:5432"
+    volumes:
+      - order-db:/var/lib/postgresql/data
+volumes:
+  order-db:
+    driver: local
