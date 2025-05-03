@@ -62,17 +62,19 @@ Envie um `POST` para `http://localhost:3000/order` com o seguinte corpo:
 
 ```json
 {
-  "clienteId": "abc123",
-  "itens": [
+  "userId": "4369134f-b048-4262-b81e-fc8e2d25072f",
+  "items": [
     {
-      "produtoId": "prod-001",
-      "nome": "Camiseta Azul",
-      "precoUnitario": 50
+      "productId": "9707a917-88db-4475-94c5-fa469f869d3b",
+      "name": "Camiseta Azul",
+      "price": 50,
+      "quantity": 1
     },
     {
-      "produtoId": "prod-002",
-      "nome": "Calça Jeans",
-      "precoUnitario": 120
+      "productId": "4369134f-b048-4262-b81e-fc8e2d25072f",
+      "name": "Calça Jeans",
+      "price": 120,
+      "quantity": 1
     }
   ]
 }
