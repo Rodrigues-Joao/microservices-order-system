@@ -15,8 +15,8 @@ export class Order
         userId: string,
         items: any[],
         status: string,
-        private createdAt: Date,
-        private updatedAt: Date
+        readonly createdAt: Date,
+        readonly updatedAt: Date
     )
     {
         this.orderId = new UUID( orderId );
@@ -38,6 +38,15 @@ export class Order
     {
         return this.orderId.getValue()
     }
+    getUserId()
+    {
+        return this.userId.getValue()
+    }
+    getItems()
+    {
+        return this.items
+    }
+
     getTotalOrder()
     {
         return this.total

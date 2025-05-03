@@ -90,8 +90,6 @@ Você verá os eventos sendo propagados e processados entre os serviços no cons
 - RabbitMQ
 - Docker & Docker Compose
 - Arquitetura orientada a eventos
-- DDD
-- TDD
 
 ---
 

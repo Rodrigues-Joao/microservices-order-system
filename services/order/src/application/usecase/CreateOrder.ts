@@ -16,9 +16,9 @@ export class CreateOrder
     async execute( input: InputType ): Promise<{ orderId: string }>
     {
         const order = Order.create( input.userId, input.items );
-        const result = await this.orderRepository.create( order );
+        await this.orderRepository.create( order );
         return {
-            orderId: result.getOrderId(),
+            orderId: order.getOrderId()
         };
     }
 }
