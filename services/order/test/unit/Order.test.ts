@@ -22,5 +22,6 @@ test( "Deve fazer a criação de um pedido", function ()
     const orderCreated = Order.create( input.userId, input.items );
     expect( orderCreated.getOrderId() ).toBeDefined();
     expect( orderCreated.getTotalOrder() ).toBe( 220 );
+    expect( orderCreated.getStatus() ).toBe( "pending" );
 
 } );
