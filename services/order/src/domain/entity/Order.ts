@@ -21,7 +21,7 @@ export class Order
     {
         this.orderId = new UUID( orderId );
         this.userId = new UUID( userId );
-        this.items = items.map( item => new Item( item.productId, item.name, item.price, item.quantity ) )
+        this.items = items.map( item => new Item( item.productId, item.name, item.quantity, item.price, ) )
         this.total = items.reduce( ( acc, item ) => acc + item.price * item.quantity, 0 )
         if ( this.total <= 0 )
             throw new Error( "Total must be greater than 0" )
