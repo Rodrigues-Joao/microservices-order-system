@@ -1,4 +1,4 @@
-import { Item } from "../../domain/entity/Item";
+
 import { Order } from "../../domain/entity/Order"
 import { inject } from "../../infra/di/Registry";
 import { IOrderRepository } from "../../infra/repository/OrderRepository";

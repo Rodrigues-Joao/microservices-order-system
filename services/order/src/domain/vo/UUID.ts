@@ -1,4 +1,4 @@
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default class UUID
 {
@@ -13,7 +13,7 @@ export default class UUID
 
     static create()
     {
-        return new UUID( crypto.randomUUID() );
+        return new UUID( uuidv4() );
     }
 
     validateUUID( uuid: string )
