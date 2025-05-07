@@ -44,7 +44,10 @@ export class Order
     }
     getItems()
     {
-        return this.items
+        return this.items.map( item => ( {
+            ...item,
+            productId: item.getProductId(),
+        } ) )
     }
 
     getTotalOrder()
