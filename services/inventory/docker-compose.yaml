@@ -1,0 +1,6 @@
+services:
+  inventory-service:
+    container_name: inventory-service
+    build: .
+    volumes:
+      - .:/home/node/app
