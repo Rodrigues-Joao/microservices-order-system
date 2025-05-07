@@ -27,7 +27,7 @@ export class CreateOrder
             userId: order.getUserId(),
             items: order.getItems()
         };
-
+        console.log( "sending orderId = ", event.orderId );
         this.queue.publish( "order_created", "", JSON.stringify( event ) );
         return {
             orderId: order.getOrderId()
