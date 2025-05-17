@@ -8,10 +8,10 @@ import { inject } from '../di/Registry';
 
 export interface IOrderRepository 
 {
-    findById( id: string | number ): Promise<Order | null>;
+    findById( id: string ): Promise<Order | null>;
     findAll(): Promise<Order[]>;
     create( data: Order ): Promise<void>;
-    update( id: string | number, data: Partial<Order> ): Promise<Order>;
+    update( data: Order ): Promise<void>;
     delete( id: string | number ): Promise<void>;
 }
 
@@ -19,9 +19,16 @@ export class OrderRepositoryPrismaImpl implements IOrderRepository
 {
     @inject( 'databaseConnection' )
     databaseConnection!: IDatabaseConnection<PrismaClient>
-    findById( id: string | number ): Promise<Order | null>
+    async findById( id: string ): Promise<Order | null>
     {
-        throw new Error( 'Method not implemented.' );
+        const order = await this.databaseConnection.getValue().order.findUnique( {
+            where: {
+                orderId: id
+            }
+        } )
+        if ( order === null )
+            return null
+        return new Order( order.orderId, order.userId, order.items as any[], order.status, order.createdAt, order.updatedAt )
     }
     findAll(): Promise<Order[]>
     {
@@ -42,9 +49,18 @@ export class OrderRepositoryPrismaImpl implements IOrderRepository
         } );
 
     }
-    update( id: string | number, data: Partial<Order> ): Promise<Order>
+    async update( data: Order ): Promise<void>
     {
-        throw new Error( 'Method not implemented.' );
+        await this.databaseConnection.getValue().order.update( {
+            where: {
+                orderId: data.getOrderId()
+
+            },
+            data: {
+                status: data.getStatus(),
+                updatedAt: new Date(),
+            }
+        } )
     }
     delete( id: string | number ): Promise<void>
     {

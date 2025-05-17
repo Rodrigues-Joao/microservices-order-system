@@ -1,5 +1,5 @@
 
-import { IOrderStatus, OrderStatusFactory, PendingStatus } from "../vo/OrderStatus";
+import { InventoryFailedStatus, IOrderStatus, OrderStatusFactory, PendingStatus } from "../vo/OrderStatus";
 import UUID from "../vo/UUID";
 import { Item } from "./Item";
 
@@ -58,6 +58,14 @@ export class Order
     setStatus( status: IOrderStatus )
     {
         this.status = status;
+    }
+    processingPayment()
+    {
+        this.status.ProcessingPayment()
+    }
+    inventoryFailed()
+    {
+        this.status.InventoryFailed()
     }
     getStatus()
     {

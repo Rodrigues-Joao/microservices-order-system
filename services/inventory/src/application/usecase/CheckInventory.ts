@@ -14,7 +14,7 @@ export class CheckInventory
 {
     @inject( "queue" )
     queue!: IQueue;
-    async execute( msg: Input )
+    async execute( msg: Input ): Promise<any>
     {
         const itemsAvailable = msg.items.every( ( item ) =>
         {
@@ -24,7 +24,9 @@ export class CheckInventory
             return product.inventoryQuantity >= item.quantity;
         } );
         const event = { orderId: msg.orderId, reservedStatus: itemsAvailable, userId: msg.userId, amount: msg.amount };
-        await this.queue.publish( "inventory_events", "inventory_events.inventory_result", event );
+
+        this.queue.publish( "inventory_events", "", event );
+        return event
     }
 
 }

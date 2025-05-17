@@ -1,5 +1,8 @@
 import { CreateOrder } from "./application/usecase/CreateOrder";
+import { GetOrder } from "./application/usecase/GetOrder";
+import { UpdateOrder } from "./application/usecase/UpdateOrder";
 import { OrderController } from "./infra/controller/OrderController";
+import { QueueController } from "./infra/controller/QueueController";
 import { PrismaAdapter } from "./infra/database/DatabaseConnection";
 import { Registry } from "./infra/di/Registry";
 import { ExpressAdapter } from "./infra/http/HttpServer";
@@ -21,7 +24,10 @@ async function main()
     Registry.getInstance().provide( "databaseConnection", new PrismaAdapter() );
     Registry.getInstance().provide( "orderRepository", new OrderRepositoryPrismaImpl() );
     Registry.getInstance().provide( "createOrder", new CreateOrder() );
+    Registry.getInstance().provide( "updateOrder", new UpdateOrder() );
+    Registry.getInstance().provide( "getOrder", new GetOrder() );
     new OrderController();
+    new QueueController();
 
     httServer.listen( port );
 }
