@@ -25,10 +25,11 @@ export class CreateOrder
             orderId: order.getOrderId(),
             status: order.getStatus(),
             userId: order.getUserId(),
-            items: order.getItems()
+            items: order.getItems(),
+            amount: order.getTotalOrder(),
         };
         console.log( "sending orderId = ", event.orderId );
-        this.queue.publish( "order_created", "", JSON.stringify( event ) );
+        this.queue.publish( "order_created", "", event );
         return {
             orderId: order.getOrderId()
         };

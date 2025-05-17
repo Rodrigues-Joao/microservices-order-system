@@ -5,12 +5,13 @@ import { Registry } from "./infra/di/Registry";
 import { ExpressAdapter } from "./infra/http/HttpServer";
 import { RabbitMQAdapter } from "./infra/queue/Queue";
 import { OrderRepositoryPrismaImpl } from "./infra/repository/OrderRepository";
-
+const rabbitHost = process.env.RABBIT_HOST || "localhost";
+const port = parseInt( process.env.PORT ?? '3000' )
 
 async function main()
 {
     const queue = new RabbitMQAdapter();
-    await queue.connect( "amqp://localhost" );
+    await queue.connect( `amqp://${ rabbitHost }` );
     await queue.declareExchange( "order_created", "direct" );
     await queue.declareQueue( "order_created.process_inventory" );
     await queue.bindQueue( "order_created.process_inventory", "order_created" );
@@ -22,7 +23,7 @@ async function main()
     Registry.getInstance().provide( "createOrder", new CreateOrder() );
     new OrderController();
 
-    httServer.listen( 3000 );
+    httServer.listen( port );
 }
 
 main()
